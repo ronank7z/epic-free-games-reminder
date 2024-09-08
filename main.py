@@ -1,13 +1,17 @@
 from selenium import webdriver
 from selenium.webdriver.edge.options import Options
+from selenium.webdriver.support.ui import WebDriverWait
+
 from bs4 import BeautifulSoup
 
 
 # Set up the Selenium browser (using Edge in this example)
 options = webdriver.EdgeOptions()
+
 driver = webdriver.Edge(options=options)
 
 # Navigate to the Epic Games Store page
+driver.minimize_window()
 driver.get('https://store.epicgames.com/en-US/')
 
 # Get the page source after JavaScript has loaded
@@ -33,8 +37,6 @@ if free_games_section:
                     print(h6.text)
                     print(h6.find_parent().find("p").find("span").text)
                     print()
-        else:
-            print(f"Section {i} has no <h6> tags.")
 else:
     print("No section containing 'Free Games' found.")
 
